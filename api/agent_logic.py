@@ -11,6 +11,7 @@ from typing_extensions import Annotated
 import os
 from tavily import TavilyClient
 from langchain_google_genai import ChatGoogleGenerativeAI
+from langgraph.graph import StateGraph, END
 
 
 class GraphState(TypedDict):
@@ -418,3 +419,56 @@ Be concise but thorough. Focus on actionable insights.
         state["final_analysis"] = f"Error in final analysis aggregation: {str(e)}"
     
     return state
+
+
+# ============================================================================
+# GRAPH ASSEMBLY - This is where we connect everything together
+# ============================================================================
+
+def create_analysis_graph():
+    """
+    Creates and compiles the LangGraph workflow for football match analysis.
+    
+    The graph orchestrates the following flow:
+    1. Start
+    2. Gather data (Tavily search)
+    3. Run specialized analyzers in parallel (goals, winner, score)
+    4. Aggregate all analyses into final prediction
+    5. End
+    
+    Returns:
+        Compiled LangGraph that can be invoked with team names
+    """
+    # Initialize the graph with our state structure
+    workflow = StateGraph(GraphState)
+    
+    # Add all nodes to the graph
+    workflow.add_node("gather_data", search_web_tavily)
+    workflow.add_node("analyze_goals", analyze_goals)
+    workflow.add_node("analyze_winner", analyze_winner)
+    workflow.add_node("analyze_score", analyze_score)
+    workflow.add_node("aggregate", aggregate_analysis)
+    
+    # Define the flow (edges)
+    # Start -> Gather data
+    workflow.set_entry_point("gather_data")
+    
+    # After gathering data, run analyzers sequentially (not parallel)
+    workflow.add_edge("gather_data", "analyze_goals")
+    workflow.add_edge("analyze_goals", "analyze_winner")
+    workflow.add_edge("analyze_winner", "analyze_score")
+    
+    # After all analyzers complete, aggregate results
+    workflow.add_edge("analyze_score", "aggregate")
+    
+    # After aggregation, end
+    workflow.add_edge("aggregate", END)
+    
+    # Compile the graph
+    app = workflow.compile()
+    
+    return app
+
+
+# Create the compiled graph (singleton instance)
+analysis_graph = create_analysis_graph()
