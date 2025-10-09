@@ -1,0 +1,8 @@
+django
+djangorestframework
+langchain
+langgraph
+langchain_google_genai
+python-dotenv
+tavily-python-sdk
+chromadb
