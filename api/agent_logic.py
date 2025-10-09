@@ -10,6 +10,7 @@ from typing import TypedDict, List, Optional
 from typing_extensions import Annotated
 import os
 from tavily import TavilyClient
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 
 class GraphState(TypedDict):
@@ -146,5 +147,189 @@ def get_football_data(state: GraphState) -> GraphState:
     except Exception as e:
         # Don't fail the entire flow if this API is down
         print(f"API-Football error: {str(e)}")
+    
+    return state
+
+
+# ============================================================================
+# SPECIALIZED ANALYZER NODES (Using Cheap LLM - Gemini Flash)
+# ============================================================================
+
+def analyze_goals(state: GraphState) -> GraphState:
+    """
+    Analyzes the expected number of goals in the match.
+    
+    Uses Gemini Flash (cheap, fast model) with a specialized prompt
+    to predict goal count based on collected research data.
+    
+    Args:
+        state: Current graph state with research_data
+        
+    Returns:
+        Updated state with goals_analysis populated
+    """
+    team1 = state.get("team1", "")
+    team2 = state.get("team2", "")
+    research_data = state.get("research_data", "")
+    
+    # Get Google API key
+    google_api_key = os.getenv("GOOGLE_API_KEY")
+    
+    if not google_api_key:
+        state["goals_analysis"] = "Error: Google API key not configured."
+        return state
+    
+    try:
+        # Initialize the cheap Gemini Flash model
+        llm = ChatGoogleGenerativeAI(
+            model="gemini-2.0-flash-exp",
+            google_api_key=google_api_key,
+            temperature=0.3  # Lower temperature for more focused analysis
+        )
+        
+        # Craft a specialized prompt for goals analysis
+        prompt = f"""You are a football match analyst specializing in GOAL PREDICTIONS.
+
+Match: {team1} vs {team2}
+
+Research Data:
+{research_data}
+
+Based on the above information, analyze and predict the TOTAL NUMBER OF GOALS in this match.
+
+Consider:
+- Recent scoring form of both teams
+- Defensive records
+- Head-to-head goal statistics
+- Playing styles (attacking vs defensive)
+- Injuries to key attackers or defenders
+
+Provide your analysis in 2-3 concise sentences, ending with a specific prediction:
+"Expected goals: Over/Under 2.5" or "Expected goals: 2-3 total"
+"""
+        
+        # Get the analysis from the LLM
+        response = llm.invoke(prompt)
+        state["goals_analysis"] = response.content
+        
+    except Exception as e:
+        state["goals_analysis"] = f"Error in goals analysis: {str(e)}"
+    
+    return state
+
+
+def analyze_winner(state: GraphState) -> GraphState:
+    """
+    Analyzes which team is likely to win the match.
+    
+    Uses Gemini Flash with a specialized prompt focused on
+    match outcome prediction.
+    
+    Args:
+        state: Current graph state with research_data
+        
+    Returns:
+        Updated state with winner_analysis populated
+    """
+    team1 = state.get("team1", "")
+    team2 = state.get("team2", "")
+    research_data = state.get("research_data", "")
+    
+    google_api_key = os.getenv("GOOGLE_API_KEY")
+    
+    if not google_api_key:
+        state["winner_analysis"] = "Error: Google API key not configured."
+        return state
+    
+    try:
+        llm = ChatGoogleGenerativeAI(
+            model="gemini-2.0-flash-exp",
+            google_api_key=google_api_key,
+            temperature=0.3
+        )
+        
+        prompt = f"""You are a football match analyst specializing in MATCH OUTCOME predictions.
+
+Match: {team1} vs {team2}
+
+Research Data:
+{research_data}
+
+Based on the above information, predict the WINNER of this match.
+
+Consider:
+- Current form and momentum
+- Home advantage (if applicable)
+- Head-to-head record
+- Team morale and recent results
+- Key player availability
+
+Provide your analysis in 2-3 concise sentences, ending with a clear prediction:
+"{team1} to win", "{team2} to win", or "Draw likely"
+"""
+        
+        response = llm.invoke(prompt)
+        state["winner_analysis"] = response.content
+        
+    except Exception as e:
+        state["winner_analysis"] = f"Error in winner analysis: {str(e)}"
+    
+    return state
+
+
+def analyze_score(state: GraphState) -> GraphState:
+    """
+    Predicts the exact score of the match.
+    
+    Uses Gemini Flash with a specialized prompt for
+    precise score prediction.
+    
+    Args:
+        state: Current graph state with research_data
+        
+    Returns:
+        Updated state with score_analysis populated
+    """
+    team1 = state.get("team1", "")
+    team2 = state.get("team2", "")
+    research_data = state.get("research_data", "")
+    
+    google_api_key = os.getenv("GOOGLE_API_KEY")
+    
+    if not google_api_key:
+        state["score_analysis"] = "Error: Google API key not configured."
+        return state
+    
+    try:
+        llm = ChatGoogleGenerativeAI(
+            model="gemini-2.0-flash-exp",
+            google_api_key=google_api_key,
+            temperature=0.3
+        )
+        
+        prompt = f"""You are a football match analyst specializing in EXACT SCORE predictions.
+
+Match: {team1} vs {team2}
+
+Research Data:
+{research_data}
+
+Based on the above information, predict the EXACT FINAL SCORE of this match.
+
+Consider:
+- Typical score patterns for these teams
+- Recent match scores
+- Offensive and defensive capabilities
+- Historical score lines in similar matchups
+
+Provide your analysis in 2-3 concise sentences, ending with a specific score prediction:
+"Predicted score: {team1} 2-1 {team2}" (use actual team names)
+"""
+        
+        response = llm.invoke(prompt)
+        state["score_analysis"] = response.content
+        
+    except Exception as e:
+        state["score_analysis"] = f"Error in score analysis: {str(e)}"
     
     return state
