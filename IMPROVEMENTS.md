@@ -9,6 +9,7 @@
 **Симптом:** AI-ът правеше **твърде консервативни** прогнози за мачове между силен и слаб отбор.
 
 **Пример:**
+
 - Bulgaria 1 - 6 Turkey (реален резултат)
 - AI прогноза за следващ мач: Turkey 2-0 Bulgaria ❌ (твърде консервативно!)
 
@@ -19,16 +20,18 @@
 ### 1. **Подобрено Tavily търсене (tools.py)**
 
 **Преди:**
+
 - 1 търсене за "{team1} vs {team2}"
 - Само 5 резултата
 - Може да няма данни за бъдещи мачове
 
 **Сега:**
+
 ```python
 # SEARCH 1: Match-specific (3 results)
 "{team1} vs {team2} prediction head-to-head statistics"
 
-# SEARCH 2: Team1 recent form (2 results)  
+# SEARCH 2: Team1 recent form (2 results)
 "{team1} recent results last 5 matches goals scored 2025"
 
 # SEARCH 3: Team2 recent form (2 results)
@@ -38,6 +41,7 @@
 ```
 
 **Защо е по-добре:**
+
 - ✅ Търси скорошна форма на всеки отбор **поотделно**
 - ✅ 7 вместо 5 източници
 - ✅ Фокус върху последни 5 мача
@@ -50,6 +54,7 @@
 #### **Goals Analyzer** (analyzers.py - analyze_goals)
 
 **Нова инструкция:**
+
 ```
 CRITICAL: Pay special attention to:
 - RECENT match results and actual goals scored (last 3-5 games)
@@ -68,14 +73,15 @@ Don't be conservative if data shows attacking dominance.
 #### **Score Analyzer** (analyzers.py - analyze_score)
 
 **Нова инструкция:**
+
 ```
 CRITICAL: Pay special attention to:
-- If one team scored 6 goals and the other conceded 6 recently, 
+- If one team scored 6 goals and the other conceded 6 recently,
   expect similar patterns
 - Large score differences (6-1, 5-0) indicate current dominance
 - Don't predict conservatively if recent results show high-scoring wins
 
-If recent data shows one team scoring many goals (4+) and the other 
+If recent data shows one team scoring many goals (4+) and the other
 conceding many, predict a clear win with multiple goals.
 
 Adapt the score - don't hesitate to predict 3-0, 4-1, etc. if data supports it!
@@ -88,6 +94,7 @@ Adapt the score - don't hesitate to predict 3-0, 4-1, etc. if data supports it!
 #### **Main Aggregator** (aggregator.py)
 
 **Нова инструкция:**
+
 ```
 CRITICAL INSTRUCTIONS:
 1. Pay SPECIAL attention to RECENT ACTUAL MATCH RESULTS
@@ -105,6 +112,7 @@ Don't hesitate to predict 3-0, 4-1, 5-0 if data supports it!
 ## 📊 Очаквани подобрения:
 
 ### **Преди промените:**
+
 ```
 Turkey vs Bulgaria
 Прогноза: 2-0 (консервативно)
@@ -112,11 +120,12 @@ Turkey vs Bulgaria
 ```
 
 ### **След промените:**
+
 ```
 Turkey vs Bulgaria
 Прогноза: 4-1 или 3-0 (по-реалистично)
 Очаквани голове: 4+ общо (based on Turkey scoring 6 last game)
-Обяснение: "Turkey демонстрира изключителна атакуваща форма 
+Обяснение: "Turkey демонстрира изключителна атакуваща форма
 с 6 гола в последния мач, докато България пропусна 6 гола..."
 ```
 
@@ -125,6 +134,7 @@ Turkey vs Bulgaria
 ## 🧪 Как да тестваш подобренията:
 
 ### **Тест 1: Силен vs Слаб отбор**
+
 ```powershell
 # В Python или PowerShell
 {
@@ -136,6 +146,7 @@ Turkey vs Bulgaria
 ```
 
 ### **Тест 2: Равностойни отбори**
+
 ```powershell
 {
   "team1": "Spain",
@@ -146,6 +157,7 @@ Turkey vs Bulgaria
 ```
 
 ### **Тест 3: Проверка на Bulgarian output**
+
 ```powershell
 python quick_test.py
 
@@ -164,6 +176,7 @@ python quick_test.py
 **Free Tier Limit:** 1000 requests/month
 
 **Възможни анализи:**
+
 - Преди: ~200 мача/месец
 - Сега: ~142 мача/месец
 
@@ -174,10 +187,12 @@ python quick_test.py
 ## ⚠️ Важни забележки:
 
 ### 1. **Temperature Settings:**
+
 - Goals/Winner/Score Analyzers: `temperature=0.3` (консервативно, но сега с по-агресивни промпти)
 - Main Aggregator: `temperature=0.7` (креативно синтезиране)
 
 ### 2. **Приоритет на данни:**
+
 ```
 1. RECENT ACTUAL RESULTS (last 3-5 matches) - HIGHEST PRIORITY
 2. Head-to-head history
@@ -186,12 +201,14 @@ python quick_test.py
 ```
 
 ### 3. **Кога AI ще бъде смел:**
+
 - Ако отбор вкара 6+ гола наскоро
 - Ако отбор пропусна 5+ гола наскоро
 - Ако има ясна разлика във форма (един печели всички, друг губи всички)
 - Ако head-to-head показва dominant pattern
 
 ### 4. **Кога AI ще бъде консервативен:**
+
 - Ако няма достатъчно данни
 - Ако отборите са равностойни
 - Ако има противоречива информация
@@ -202,17 +219,20 @@ python quick_test.py
 ## 🔮 Следващи стъпки (TODO):
 
 ### **Фаза 2: API-Football Integration**
+
 - [ ] Implement `get_football_data()` в tools.py
 - [ ] Реални live статистики
 - [ ] Player форма и ratings
 - [ ] Expected Goals (xG) данни
 
 ### **Фаза 3: Historical Data Cache**
+
 - [ ] Cache head-to-head резултати
 - [ ] Избегни повторни searches за същите отбори
 - [ ] Намали API usage
 
 ### **Фаза 4: Confidence Scoring**
+
 - [ ] Добави numerical confidence (0-100%)
 - [ ] Based on data quality и agreement между агенти
 
@@ -223,6 +243,7 @@ python quick_test.py
 Тествай новите промени с **Turkey vs Bulgaria** или подобни мачове и провери дали прогнозите са по-реалистични!
 
 Ако все още е твърде консервативно, мога да:
+
 1. Увелича temperature на analyzers (от 0.3 → 0.5)
 2. Добавя още emphasis в промптовете
 3. Добавя explicit scoring examples в промптовете

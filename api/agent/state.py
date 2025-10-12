@@ -5,7 +5,7 @@ Defines the state structure that flows through the LangGraph.
 This is the "memory" of our agent.
 """
 
-from typing import TypedDict, List, Optional
+from typing import TypedDict, List, Optional, Dict, Any
 
 
 class GraphState(TypedDict):
@@ -21,6 +21,11 @@ class GraphState(TypedDict):
     
     # Research data collected from web search
     research_data: Optional[str]  # Raw information from Tavily search
+    
+    # Structured data for frontend visualization (NEW)
+    team1_stats: Optional[Dict[str, Any]]  # Team1 recent matches, form, stats
+    team2_stats: Optional[Dict[str, Any]]  # Team2 recent matches, form, stats
+    head_to_head: Optional[Dict[str, Any]]  # H2H history and stats
     
     # Analysis results from specialized agents
     goals_analysis: Optional[str]  # Analysis of expected goals count
