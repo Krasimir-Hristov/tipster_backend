@@ -92,14 +92,15 @@ Content-Type: application/json
 | Parameter       | Type   | Required                    | Description                                    |
 | --------------- | ------ | --------------------------- | ---------------------------------------------- |
 | `id`            | string | ⭐ Recommended (Odds API)   | Уникален идентификатор на мача от The Odds API |
-| `sport_key`     | string | ⭐ Recommended               | Ключ на спорта (напр. `soccer_epl`)            |
-| `commence_time` | string | ⭐ Recommended               | ISO 8601 timestamp на началото на мача         |
+| `sport_key`     | string | ⭐ Recommended              | Ключ на спорта (напр. `soccer_epl`)            |
+| `commence_time` | string | ⭐ Recommended              | ISO 8601 timestamp на началото на мача         |
 | `home_team`     | string | ✅ Yes (or team1)           | Име на домакина (ТОЧНО от The Odds API)        |
 | `away_team`     | string | ✅ Yes (or team2)           | Име на гостите (ТОЧНО от The Odds API)         |
 | `team1`         | string | ✅ Yes (legacy format only) | Име на първия отбор                            |
 | `team2`         | string | ✅ Yes (legacy format only) | Име на втория отбор                            |
 
 **💡 Защо The Odds API формат е по-добър:**
+
 - ✅ Точни имена на отборите (без правописни грешки)
 - ✅ Избягва неексистиращи мачове
 - ✅ Допълнителна информация (време, спорт)
@@ -115,7 +116,7 @@ Content-Type: application/json
   "match_id": "abc123xyz789",
   "commence_time": "2025-10-12T19:00:00Z",
   "sport_key": "soccer_uefa_european_championship_qualifying",
-  
+
   "analysis": {
     "goals_prediction": "Турция демонстрира изключителна атакуваща форма с 6 гола в последния мач срещу България, докато българската защита е много уязвима след като пропусна 6 гола. Предвид тази разлика във форма, очаква се много голове.\n\nОчаквани голове: 4+ общо",
 
@@ -127,7 +128,7 @@ Content-Type: application/json
 
     "research_data": "=== Research Data for Turkey vs Bulgaria ===\n\n1. Turkey demolishes Bulgaria 6-1..."
   },
-  
+
   "team1_stats": {
     "name": "Turkey",
     "recent_matches": [
@@ -158,7 +159,7 @@ Content-Type: application/json
     "avg_goals_conceded": 0.8,
     "matches_analyzed": 10
   },
-  
+
   "team2_stats": {
     "name": "Bulgaria",
     "recent_matches": [
@@ -189,7 +190,7 @@ Content-Type: application/json
     "avg_goals_conceded": 2.2,
     "matches_analyzed": 10
   },
-  
+
   "head_to_head": {
     "total_matches": 15,
     "team1_wins": 8,
@@ -222,34 +223,34 @@ Content-Type: application/json
 
 #### **Response Fields:**
 
-| Field                          | Type    | Description                                          |
-| ------------------------------ | ------- | ---------------------------------------------------- |
-| `success`                      | boolean | Дали заявката е успешна                              |
-| `team1`                        | string  | Име на първия отбор                                  |
-| `team2`                        | string  | Име на втория отбор                                  |
-| **Analysis (AI Predictions)**  |         |                                                      |
-| `analysis.goals_prediction`    | string  | AI анализ за очаквания брой голове (на български)    |
-| `analysis.winner_prediction`   | string  | AI предвиждане кой отбор ще спечели (на български)   |
-| `analysis.score_prediction`    | string  | AI предвиждане на точния резултат (на български)     |
-| `analysis.final_analysis`      | string  | Финален агрегиран анализ (на български)              |
-| `analysis.research_data`       | string  | Събрани данни от уеб търсене (Tavily API)           |
-| **Team1 Stats (Structured)**   |         | **НОВО в v1.1.0** - Structured data за визуализация |
-| `team1_stats.name`             | string  | Име на първия отбор                                  |
-| `team1_stats.recent_matches`   | array   | Последни 10 мача (ако има данни)                     |
-| `team1_stats.form`             | string  | Форма като "WWLDW" (W=win, L=loss, D=draw)           |
-| `team1_stats.total_goals_scored` | number | Общо вкарани голове в анализираните мачове         |
-| `team1_stats.total_goals_conceded` | number | Общо пропуснати голове                           |
-| `team1_stats.avg_goals_scored` | number  | Средно вкарани голове на мач                         |
-| `team1_stats.avg_goals_conceded` | number | Средно пропуснати голове на мач                    |
-| `team1_stats.matches_analyzed` | number  | Брой анализирани мачове                              |
-| **Team2 Stats (Structured)**   |         | Същата структура като team1_stats                    |
-| `team2_stats.*`                |         | (виж team1_stats за детайли)                         |
-| **Head-to-Head Data**          |         | **НОВО в v1.1.0** - H2H история                      |
-| `head_to_head.total_matches`   | number  | Общо мачове между двата отбора (historical)          |
-| `head_to_head.team1_wins`      | number  | Победи на team1                                      |
-| `head_to_head.draws`           | number  | Равенства                                            |
-| `head_to_head.team2_wins`      | number  | Победи на team2                                      |
-| `head_to_head.recent_matches`  | array   | Последни 10 H2H мача (ако има данни)                 |
+| Field                              | Type    | Description                                         |
+| ---------------------------------- | ------- | --------------------------------------------------- |
+| `success`                          | boolean | Дали заявката е успешна                             |
+| `team1`                            | string  | Име на първия отбор                                 |
+| `team2`                            | string  | Име на втория отбор                                 |
+| **Analysis (AI Predictions)**      |         |                                                     |
+| `analysis.goals_prediction`        | string  | AI анализ за очаквания брой голове (на български)   |
+| `analysis.winner_prediction`       | string  | AI предвиждане кой отбор ще спечели (на български)  |
+| `analysis.score_prediction`        | string  | AI предвиждане на точния резултат (на български)    |
+| `analysis.final_analysis`          | string  | Финален агрегиран анализ (на български)             |
+| `analysis.research_data`           | string  | Събрани данни от уеб търсене (Tavily API)           |
+| **Team1 Stats (Structured)**       |         | **НОВО в v1.1.0** - Structured data за визуализация |
+| `team1_stats.name`                 | string  | Име на първия отбор                                 |
+| `team1_stats.recent_matches`       | array   | Последни 10 мача (ако има данни)                    |
+| `team1_stats.form`                 | string  | Форма като "WWLDW" (W=win, L=loss, D=draw)          |
+| `team1_stats.total_goals_scored`   | number  | Общо вкарани голове в анализираните мачове          |
+| `team1_stats.total_goals_conceded` | number  | Общо пропуснати голове                              |
+| `team1_stats.avg_goals_scored`     | number  | Средно вкарани голове на мач                        |
+| `team1_stats.avg_goals_conceded`   | number  | Средно пропуснати голове на мач                     |
+| `team1_stats.matches_analyzed`     | number  | Брой анализирани мачове                             |
+| **Team2 Stats (Structured)**       |         | Същата структура като team1_stats                   |
+| `team2_stats.*`                    |         | (виж team1_stats за детайли)                        |
+| **Head-to-Head Data**              |         | **НОВО в v1.1.0** - H2H история                     |
+| `head_to_head.total_matches`       | number  | Общо мачове между двата отбора (historical)         |
+| `head_to_head.team1_wins`          | number  | Победи на team1                                     |
+| `head_to_head.draws`               | number  | Равенства                                           |
+| `head_to_head.team2_wins`          | number  | Победи на team2                                     |
+| `head_to_head.recent_matches`      | array   | Последни 10 H2H мача (ако има данни)                |
 
 ---
 
@@ -259,13 +260,13 @@ Content-Type: application/json
 
 ```json
 {
-  "date": "2025-10-11",           // Дата на мача (YYYY-MM-DD)
-  "opponent": "Bulgaria",          // Противник
-  "score": "6-1",                  // Резултат
-  "home_away": "away",             // "home" или "away"
-  "result": "win",                 // "win", "loss", или "draw"
-  "goals_scored": 6,               // Вкарани голове
-  "goals_conceded": 1              // Пропуснати голове
+  "date": "2025-10-11", // Дата на мача (YYYY-MM-DD)
+  "opponent": "Bulgaria", // Противник
+  "score": "6-1", // Резултат
+  "home_away": "away", // "home" или "away"
+  "result": "win", // "win", "loss", или "draw"
+  "goals_scored": 6, // Вкарани голове
+  "goals_conceded": 1 // Пропуснати голове
 }
 ```
 
@@ -277,11 +278,11 @@ Content-Type: application/json
 
 ```json
 {
-  "date": "2025-10-11",            // Дата на мача
-  "home_team": "Bulgaria",         // Домакин
-  "away_team": "Turkey",           // Гост
-  "score": "1-6",                  // Резултат
-  "winner": "Turkey"               // "Turkey", "Bulgaria", или "Draw"
+  "date": "2025-10-11", // Дата на мача
+  "home_team": "Bulgaria", // Домакин
+  "away_team": "Turkey", // Гост
+  "score": "1-6", // Резултат
+  "winner": "Turkey" // "Turkey", "Bulgaria", или "Draw"
 }
 ```
 
@@ -678,39 +679,45 @@ export default function Home() {
   };
 
   return (
-    <div className="container mx-auto p-8">
-      <button 
+    <div className='container mx-auto p-8'>
+      <button
         onClick={handleAnalyze}
-        className="bg-blue-500 text-white px-6 py-2 rounded"
+        className='bg-blue-500 text-white px-6 py-2 rounded'
         disabled={loading}
       >
         {loading ? 'Analyzing...' : 'Analyze Match'}
       </button>
 
       {result && (
-        <div className="mt-8 space-y-6">
+        <div className='mt-8 space-y-6'>
           {/* AI Analysis */}
-          <div className="bg-white p-6 rounded shadow">
-            <h2 className="text-2xl font-bold mb-4">Final Analysis</h2>
-            <p className="whitespace-pre-wrap">{result.analysis.final_analysis}</p>
+          <div className='bg-white p-6 rounded shadow'>
+            <h2 className='text-2xl font-bold mb-4'>Final Analysis</h2>
+            <p className='whitespace-pre-wrap'>
+              {result.analysis.final_analysis}
+            </p>
           </div>
 
           {/* Team 1 Stats - NEW! */}
           {result.team1_stats && !result.team1_stats.error && (
-            <div className="bg-white p-6 rounded shadow">
-              <h3 className="text-xl font-bold mb-4">{result.team1_stats.name} - Recent Form</h3>
-              
+            <div className='bg-white p-6 rounded shadow'>
+              <h3 className='text-xl font-bold mb-4'>
+                {result.team1_stats.name} - Recent Form
+              </h3>
+
               {/* Form Badge */}
-              <div className="mb-4">
-                <span className="text-sm text-gray-600">Form: </span>
-                <div className="inline-flex gap-1">
+              <div className='mb-4'>
+                <span className='text-sm text-gray-600'>Form: </span>
+                <div className='inline-flex gap-1'>
                   {result.team1_stats.form.split('').map((char, idx) => (
-                    <span 
+                    <span
                       key={idx}
                       className={`w-8 h-8 flex items-center justify-center rounded ${
-                        char === 'W' ? 'bg-green-500 text-white' :
-                        char === 'L' ? 'bg-red-500 text-white' :
-                        'bg-gray-400 text-white'
+                        char === 'W'
+                          ? 'bg-green-500 text-white'
+                          : char === 'L'
+                          ? 'bg-red-500 text-white'
+                          : 'bg-gray-400 text-white'
                       }`}
                     >
                       {char}
@@ -720,39 +727,47 @@ export default function Home() {
               </div>
 
               {/* Stats Grid */}
-              <div className="grid grid-cols-2 gap-4 mb-4">
-                <div className="bg-blue-50 p-3 rounded">
-                  <p className="text-sm text-gray-600">Avg Goals Scored</p>
-                  <p className="text-2xl font-bold">{result.team1_stats.avg_goals_scored}</p>
+              <div className='grid grid-cols-2 gap-4 mb-4'>
+                <div className='bg-blue-50 p-3 rounded'>
+                  <p className='text-sm text-gray-600'>Avg Goals Scored</p>
+                  <p className='text-2xl font-bold'>
+                    {result.team1_stats.avg_goals_scored}
+                  </p>
                 </div>
-                <div className="bg-red-50 p-3 rounded">
-                  <p className="text-sm text-gray-600">Avg Goals Conceded</p>
-                  <p className="text-2xl font-bold">{result.team1_stats.avg_goals_conceded}</p>
+                <div className='bg-red-50 p-3 rounded'>
+                  <p className='text-sm text-gray-600'>Avg Goals Conceded</p>
+                  <p className='text-2xl font-bold'>
+                    {result.team1_stats.avg_goals_conceded}
+                  </p>
                 </div>
               </div>
 
               {/* Recent Matches Table */}
-              <table className="w-full">
+              <table className='w-full'>
                 <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-2">Date</th>
-                    <th className="text-left py-2">Opponent</th>
-                    <th className="text-center py-2">Score</th>
-                    <th className="text-center py-2">Result</th>
+                  <tr className='border-b'>
+                    <th className='text-left py-2'>Date</th>
+                    <th className='text-left py-2'>Opponent</th>
+                    <th className='text-center py-2'>Score</th>
+                    <th className='text-center py-2'>Result</th>
                   </tr>
                 </thead>
                 <tbody>
                   {result.team1_stats.recent_matches.map((match, idx) => (
-                    <tr key={idx} className="border-b">
-                      <td className="py-2">{match.date}</td>
-                      <td className="py-2">{match.opponent}</td>
-                      <td className="text-center py-2">{match.score}</td>
-                      <td className="text-center py-2">
-                        <span className={`px-2 py-1 rounded text-xs ${
-                          match.result === 'win' ? 'bg-green-100 text-green-800' :
-                          match.result === 'loss' ? 'bg-red-100 text-red-800' :
-                          'bg-gray-100 text-gray-800'
-                        }`}>
+                    <tr key={idx} className='border-b'>
+                      <td className='py-2'>{match.date}</td>
+                      <td className='py-2'>{match.opponent}</td>
+                      <td className='text-center py-2'>{match.score}</td>
+                      <td className='text-center py-2'>
+                        <span
+                          className={`px-2 py-1 rounded text-xs ${
+                            match.result === 'win'
+                              ? 'bg-green-100 text-green-800'
+                              : match.result === 'loss'
+                              ? 'bg-red-100 text-red-800'
+                              : 'bg-gray-100 text-gray-800'
+                          }`}
+                        >
                           {match.result.toUpperCase()}
                         </span>
                       </td>
@@ -768,42 +783,52 @@ export default function Home() {
 
           {/* Head-to-Head - NEW! */}
           {result.head_to_head && !result.head_to_head.error && (
-            <div className="bg-white p-6 rounded shadow">
-              <h3 className="text-xl font-bold mb-4">Head-to-Head History</h3>
-              
+            <div className='bg-white p-6 rounded shadow'>
+              <h3 className='text-xl font-bold mb-4'>Head-to-Head History</h3>
+
               {/* H2H Summary */}
-              <div className="flex justify-around mb-6">
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-blue-600">{result.head_to_head.team1_wins}</p>
-                  <p className="text-sm text-gray-600">{result.team1} Wins</p>
+              <div className='flex justify-around mb-6'>
+                <div className='text-center'>
+                  <p className='text-3xl font-bold text-blue-600'>
+                    {result.head_to_head.team1_wins}
+                  </p>
+                  <p className='text-sm text-gray-600'>{result.team1} Wins</p>
                 </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-gray-600">{result.head_to_head.draws}</p>
-                  <p className="text-sm text-gray-600">Draws</p>
+                <div className='text-center'>
+                  <p className='text-3xl font-bold text-gray-600'>
+                    {result.head_to_head.draws}
+                  </p>
+                  <p className='text-sm text-gray-600'>Draws</p>
                 </div>
-                <div className="text-center">
-                  <p className="text-3xl font-bold text-red-600">{result.head_to_head.team2_wins}</p>
-                  <p className="text-sm text-gray-600">{result.team2} Wins</p>
+                <div className='text-center'>
+                  <p className='text-3xl font-bold text-red-600'>
+                    {result.head_to_head.team2_wins}
+                  </p>
+                  <p className='text-sm text-gray-600'>{result.team2} Wins</p>
                 </div>
               </div>
 
               {/* Recent H2H Matches */}
-              <table className="w-full">
+              <table className='w-full'>
                 <thead>
-                  <tr className="border-b">
-                    <th className="text-left py-2">Date</th>
-                    <th className="text-left py-2">Match</th>
-                    <th className="text-center py-2">Score</th>
-                    <th className="text-center py-2">Winner</th>
+                  <tr className='border-b'>
+                    <th className='text-left py-2'>Date</th>
+                    <th className='text-left py-2'>Match</th>
+                    <th className='text-center py-2'>Score</th>
+                    <th className='text-center py-2'>Winner</th>
                   </tr>
                 </thead>
                 <tbody>
                   {result.head_to_head.recent_matches.map((match, idx) => (
-                    <tr key={idx} className="border-b">
-                      <td className="py-2">{match.date}</td>
-                      <td className="py-2">{match.home_team} vs {match.away_team}</td>
-                      <td className="text-center py-2">{match.score}</td>
-                      <td className="text-center py-2 font-semibold">{match.winner}</td>
+                    <tr key={idx} className='border-b'>
+                      <td className='py-2'>{match.date}</td>
+                      <td className='py-2'>
+                        {match.home_team} vs {match.away_team}
+                      </td>
+                      <td className='text-center py-2'>{match.score}</td>
+                      <td className='text-center py-2 font-semibold'>
+                        {match.winner}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -931,7 +956,7 @@ export interface MatchAnalysisRequest {
   commence_time?: string;
   home_team?: string;
   away_team?: string;
-  
+
   // Legacy format (still supported)
   team1?: string;
   team2?: string;
@@ -1042,28 +1067,38 @@ interface FormBadgeProps {
 export function FormBadge({ form }: FormBadgeProps) {
   const getColor = (result: string) => {
     switch (result) {
-      case 'W': return 'bg-green-500';
-      case 'L': return 'bg-red-500';
-      case 'D': return 'bg-gray-400';
-      default: return 'bg-gray-300';
+      case 'W':
+        return 'bg-green-500';
+      case 'L':
+        return 'bg-red-500';
+      case 'D':
+        return 'bg-gray-400';
+      default:
+        return 'bg-gray-300';
     }
   };
 
   const getLabel = (result: string) => {
     switch (result) {
-      case 'W': return '✓';
-      case 'L': return '✗';
-      case 'D': return '=';
-      default: return '?';
+      case 'W':
+        return '✓';
+      case 'L':
+        return '✗';
+      case 'D':
+        return '=';
+      default:
+        return '?';
     }
   };
 
   return (
-    <div className="flex gap-1">
+    <div className='flex gap-1'>
       {form.split('').map((char, idx) => (
         <div
           key={idx}
-          className={`w-8 h-8 flex items-center justify-center rounded font-bold text-white ${getColor(char)}`}
+          className={`w-8 h-8 flex items-center justify-center rounded font-bold text-white ${getColor(
+            char
+          )}`}
           title={char === 'W' ? 'Win' : char === 'L' ? 'Loss' : 'Draw'}
         >
           {getLabel(char)}
@@ -1109,22 +1144,22 @@ export function TeamStatsCard({ stats, color }: TeamStatsCardProps) {
       <h3 className={`text-2xl font-bold ${c.text} mb-4`}>{stats.name}</h3>
 
       {/* Form */}
-      <div className="mb-6">
-        <p className="text-sm text-gray-600 mb-2">Recent Form:</p>
+      <div className='mb-6'>
+        <p className='text-sm text-gray-600 mb-2'>Recent Form:</p>
         <FormBadge form={stats.form} />
       </div>
 
       {/* Stats Grid */}
-      <div className="grid grid-cols-2 gap-4 mb-6">
-        <div className="bg-white p-4 rounded shadow-sm">
-          <p className="text-xs text-gray-500 uppercase">Avg Scored</p>
-          <p className="text-3xl font-bold text-green-600">
+      <div className='grid grid-cols-2 gap-4 mb-6'>
+        <div className='bg-white p-4 rounded shadow-sm'>
+          <p className='text-xs text-gray-500 uppercase'>Avg Scored</p>
+          <p className='text-3xl font-bold text-green-600'>
             {stats.avg_goals_scored.toFixed(1)} ⚽
           </p>
         </div>
-        <div className="bg-white p-4 rounded shadow-sm">
-          <p className="text-xs text-gray-500 uppercase">Avg Conceded</p>
-          <p className="text-3xl font-bold text-red-600">
+        <div className='bg-white p-4 rounded shadow-sm'>
+          <p className='text-xs text-gray-500 uppercase'>Avg Conceded</p>
+          <p className='text-3xl font-bold text-red-600'>
             {stats.avg_goals_conceded.toFixed(1)} 🥅
           </p>
         </div>
@@ -1132,20 +1167,22 @@ export function TeamStatsCard({ stats, color }: TeamStatsCardProps) {
 
       {/* Recent Matches */}
       <div>
-        <h4 className="font-semibold mb-3">Last {Math.min(5, stats.recent_matches.length)} Matches:</h4>
-        <div className="space-y-2">
+        <h4 className='font-semibold mb-3'>
+          Last {Math.min(5, stats.recent_matches.length)} Matches:
+        </h4>
+        <div className='space-y-2'>
           {stats.recent_matches.slice(0, 5).map((match, idx) => (
             <div
               key={idx}
-              className="bg-white p-3 rounded shadow-sm flex items-center justify-between"
+              className='bg-white p-3 rounded shadow-sm flex items-center justify-between'
             >
-              <div className="flex-1">
-                <p className="text-sm font-semibold">{match.opponent}</p>
-                <p className="text-xs text-gray-500">{match.date}</p>
+              <div className='flex-1'>
+                <p className='text-sm font-semibold'>{match.opponent}</p>
+                <p className='text-xs text-gray-500'>{match.date}</p>
               </div>
-              <div className="text-center px-4">
-                <p className="font-bold text-lg">{match.score}</p>
-                <p className="text-xs text-gray-500">
+              <div className='text-center px-4'>
+                <p className='font-bold text-lg'>{match.score}</p>
+                <p className='text-xs text-gray-500'>
                   {match.home_away === 'home' ? 'Home' : 'Away'}
                 </p>
               </div>
@@ -1189,46 +1226,46 @@ export function HeadToHeadCard({ h2h, team1Name, team2Name }: H2HCardProps) {
   const team2Percentage = (h2h.team2_wins / h2h.total_matches) * 100;
 
   return (
-    <div className="bg-white rounded-lg shadow-lg p-6">
-      <h3 className="text-2xl font-bold text-center mb-6">
+    <div className='bg-white rounded-lg shadow-lg p-6'>
+      <h3 className='text-2xl font-bold text-center mb-6'>
         ⚔️ Head-to-Head History
       </h3>
 
       {/* Win Stats */}
-      <div className="grid grid-cols-3 gap-4 mb-6">
-        <div className="text-center">
-          <p className="text-4xl font-bold text-blue-600">{h2h.team1_wins}</p>
-          <p className="text-sm text-gray-600">{team1Name} Wins</p>
-          <p className="text-xs text-gray-400">{team1Percentage.toFixed(0)}%</p>
+      <div className='grid grid-cols-3 gap-4 mb-6'>
+        <div className='text-center'>
+          <p className='text-4xl font-bold text-blue-600'>{h2h.team1_wins}</p>
+          <p className='text-sm text-gray-600'>{team1Name} Wins</p>
+          <p className='text-xs text-gray-400'>{team1Percentage.toFixed(0)}%</p>
         </div>
-        <div className="text-center">
-          <p className="text-4xl font-bold text-gray-600">{h2h.draws}</p>
-          <p className="text-sm text-gray-600">Draws</p>
-          <p className="text-xs text-gray-400">{drawPercentage.toFixed(0)}%</p>
+        <div className='text-center'>
+          <p className='text-4xl font-bold text-gray-600'>{h2h.draws}</p>
+          <p className='text-sm text-gray-600'>Draws</p>
+          <p className='text-xs text-gray-400'>{drawPercentage.toFixed(0)}%</p>
         </div>
-        <div className="text-center">
-          <p className="text-4xl font-bold text-red-600">{h2h.team2_wins}</p>
-          <p className="text-sm text-gray-600">{team2Name} Wins</p>
-          <p className="text-xs text-gray-400">{team2Percentage.toFixed(0)}%</p>
+        <div className='text-center'>
+          <p className='text-4xl font-bold text-red-600'>{h2h.team2_wins}</p>
+          <p className='text-sm text-gray-600'>{team2Name} Wins</p>
+          <p className='text-xs text-gray-400'>{team2Percentage.toFixed(0)}%</p>
         </div>
       </div>
 
       {/* Visual Bar */}
-      <div className="h-8 flex rounded-lg overflow-hidden mb-6">
+      <div className='h-8 flex rounded-lg overflow-hidden mb-6'>
         <div
-          className="bg-blue-500 flex items-center justify-center text-white text-xs font-bold"
+          className='bg-blue-500 flex items-center justify-center text-white text-xs font-bold'
           style={{ width: `${team1Percentage}%` }}
         >
           {team1Percentage > 15 && `${team1Percentage.toFixed(0)}%`}
         </div>
         <div
-          className="bg-gray-400 flex items-center justify-center text-white text-xs font-bold"
+          className='bg-gray-400 flex items-center justify-center text-white text-xs font-bold'
           style={{ width: `${drawPercentage}%` }}
         >
           {drawPercentage > 10 && `${drawPercentage.toFixed(0)}%`}
         </div>
         <div
-          className="bg-red-500 flex items-center justify-center text-white text-xs font-bold"
+          className='bg-red-500 flex items-center justify-center text-white text-xs font-bold'
           style={{ width: `${team2Percentage}%` }}
         >
           {team2Percentage > 15 && `${team2Percentage.toFixed(0)}%`}
@@ -1237,27 +1274,29 @@ export function HeadToHeadCard({ h2h, team1Name, team2Name }: H2HCardProps) {
 
       {/* Recent H2H Matches */}
       <div>
-        <h4 className="font-semibold mb-3">
+        <h4 className='font-semibold mb-3'>
           Last {h2h.recent_matches.length} Meetings:
         </h4>
-        <table className="w-full">
+        <table className='w-full'>
           <thead>
-            <tr className="border-b">
-              <th className="text-left py-2 text-sm">Date</th>
-              <th className="text-left py-2 text-sm">Match</th>
-              <th className="text-center py-2 text-sm">Score</th>
-              <th className="text-center py-2 text-sm">Winner</th>
+            <tr className='border-b'>
+              <th className='text-left py-2 text-sm'>Date</th>
+              <th className='text-left py-2 text-sm'>Match</th>
+              <th className='text-center py-2 text-sm'>Score</th>
+              <th className='text-center py-2 text-sm'>Winner</th>
             </tr>
           </thead>
           <tbody>
             {h2h.recent_matches.map((match, idx) => (
-              <tr key={idx} className="border-b hover:bg-gray-50">
-                <td className="py-3 text-sm">{match.date}</td>
-                <td className="py-3 text-sm">
+              <tr key={idx} className='border-b hover:bg-gray-50'>
+                <td className='py-3 text-sm'>{match.date}</td>
+                <td className='py-3 text-sm'>
                   {match.home_team} vs {match.away_team}
                 </td>
-                <td className="text-center py-3 font-semibold">{match.score}</td>
-                <td className="text-center py-3">
+                <td className='text-center py-3 font-semibold'>
+                  {match.score}
+                </td>
+                <td className='text-center py-3'>
                   <span
                     className={`px-2 py-1 rounded text-xs font-semibold ${
                       match.winner === team1Name
@@ -1316,38 +1355,38 @@ export function PredictionSummary({ analysis }: PredictionSummaryProps) {
   const goals = extractGoals(analysis.goals_prediction);
 
   return (
-    <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-xl p-6 mb-8">
-      <h2 className="text-3xl font-bold mb-6 text-center">🏆 AI Prediction</h2>
-      
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <div className='bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-lg shadow-xl p-6 mb-8'>
+      <h2 className='text-3xl font-bold mb-6 text-center'>🏆 AI Prediction</h2>
+
+      <div className='grid grid-cols-1 md:grid-cols-3 gap-6'>
         {/* Winner */}
-        <div className="bg-white/10 backdrop-blur rounded-lg p-4 text-center">
-          <p className="text-sm opacity-80 mb-2">Winner</p>
-          <p className="text-3xl font-bold">{winner}</p>
-          <p className="text-xs opacity-70 mt-2">⭐⭐⭐⭐⭐</p>
+        <div className='bg-white/10 backdrop-blur rounded-lg p-4 text-center'>
+          <p className='text-sm opacity-80 mb-2'>Winner</p>
+          <p className='text-3xl font-bold'>{winner}</p>
+          <p className='text-xs opacity-70 mt-2'>⭐⭐⭐⭐⭐</p>
         </div>
 
         {/* Score */}
-        <div className="bg-white/10 backdrop-blur rounded-lg p-4 text-center">
-          <p className="text-sm opacity-80 mb-2">Predicted Score</p>
-          <p className="text-3xl font-bold">{score}</p>
-          <p className="text-xs opacity-70 mt-2">⭐⭐⭐⭐</p>
+        <div className='bg-white/10 backdrop-blur rounded-lg p-4 text-center'>
+          <p className='text-sm opacity-80 mb-2'>Predicted Score</p>
+          <p className='text-3xl font-bold'>{score}</p>
+          <p className='text-xs opacity-70 mt-2'>⭐⭐⭐⭐</p>
         </div>
 
         {/* Goals */}
-        <div className="bg-white/10 backdrop-blur rounded-lg p-4 text-center">
-          <p className="text-sm opacity-80 mb-2">Total Goals</p>
-          <p className="text-2xl font-bold">{goals}</p>
-          <p className="text-xs opacity-70 mt-2">⭐⭐⭐⭐⭐</p>
+        <div className='bg-white/10 backdrop-blur rounded-lg p-4 text-center'>
+          <p className='text-sm opacity-80 mb-2'>Total Goals</p>
+          <p className='text-2xl font-bold'>{goals}</p>
+          <p className='text-xs opacity-70 mt-2'>⭐⭐⭐⭐⭐</p>
         </div>
       </div>
 
       {/* Full Analysis (Collapsible) */}
-      <details className="mt-6">
-        <summary className="cursor-pointer text-sm font-semibold hover:underline">
+      <details className='mt-6'>
+        <summary className='cursor-pointer text-sm font-semibold hover:underline'>
           📝 View Detailed Analysis (Bulgarian)
         </summary>
-        <div className="mt-4 bg-white/10 backdrop-blur rounded p-4 text-sm whitespace-pre-wrap">
+        <div className='mt-4 bg-white/10 backdrop-blur rounded p-4 text-sm whitespace-pre-wrap'>
           {analysis.final_analysis}
         </div>
       </details>
@@ -1363,7 +1402,11 @@ export function PredictionSummary({ analysis }: PredictionSummaryProps) {
 'use client';
 
 import { useState } from 'react';
-import { analyzeMatch, MatchAnalysisResponse, oddsApiToRequest } from '@/lib/api/tipsterApi';
+import {
+  analyzeMatch,
+  MatchAnalysisResponse,
+  oddsApiToRequest,
+} from '@/lib/api/tipsterApi';
 import { TeamStatsCard } from '@/components/TeamStatsCard';
 import { HeadToHeadCard } from '@/components/HeadToHeadCard';
 import { PredictionSummary } from '@/components/PredictionSummary';
@@ -1409,48 +1452,53 @@ export default function AnalysisPage() {
   };
 
   return (
-    <div className="container mx-auto px-4 py-8 max-w-7xl">
-      <h1 className="text-4xl font-bold text-center mb-8">
+    <div className='container mx-auto px-4 py-8 max-w-7xl'>
+      <h1 className='text-4xl font-bold text-center mb-8'>
         ⚽ Football Match Analysis
       </h1>
 
       {/* Test Button */}
-      <div className="text-center mb-8">
+      <div className='text-center mb-8'>
         <button
           onClick={handleTestAnalysis}
           disabled={loading}
-          className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed"
+          className='bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 px-8 rounded-lg shadow-lg disabled:opacity-50 disabled:cursor-not-allowed'
         >
-          {loading ? '🔄 Analyzing...' : '🚀 Test Analysis (Turkey vs Bulgaria)'}
+          {loading
+            ? '🔄 Analyzing...'
+            : '🚀 Test Analysis (Turkey vs Bulgaria)'}
         </button>
       </div>
 
       {/* Error */}
       {error && (
-        <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-8">
-          <p className="font-bold">Error:</p>
+        <div className='bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-8'>
+          <p className='font-bold'>Error:</p>
           <p>{error}</p>
         </div>
       )}
 
       {/* Loading */}
       {loading && (
-        <div className="text-center py-12">
-          <div className="inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600"></div>
-          <p className="mt-4 text-gray-600">Analyzing match with AI agents...</p>
+        <div className='text-center py-12'>
+          <div className='inline-block animate-spin rounded-full h-16 w-16 border-b-4 border-blue-600'></div>
+          <p className='mt-4 text-gray-600'>
+            Analyzing match with AI agents...
+          </p>
         </div>
       )}
 
       {/* Results */}
       {result && !loading && (
-        <div className="space-y-8">
+        <div className='space-y-8'>
           {/* Match Header */}
-          <div className="bg-gray-800 text-white rounded-lg p-6 text-center">
-            <h2 className="text-3xl font-bold">
-              {result.team1} <span className="text-gray-400">vs</span> {result.team2}
+          <div className='bg-gray-800 text-white rounded-lg p-6 text-center'>
+            <h2 className='text-3xl font-bold'>
+              {result.team1} <span className='text-gray-400'>vs</span>{' '}
+              {result.team2}
             </h2>
             {result.commence_time && (
-              <p className="text-sm text-gray-400 mt-2">
+              <p className='text-sm text-gray-400 mt-2'>
                 {new Date(result.commence_time).toLocaleString()}
               </p>
             )}
@@ -1460,12 +1508,13 @@ export default function AnalysisPage() {
           <PredictionSummary analysis={result.analysis} />
 
           {/* Team Stats Side by Side */}
-          {!('error' in result.team1_stats) && !('error' in result.team2_stats) && (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-              <TeamStatsCard stats={result.team1_stats} color="blue" />
-              <TeamStatsCard stats={result.team2_stats} color="red" />
-            </div>
-          )}
+          {!('error' in result.team1_stats) &&
+            !('error' in result.team2_stats) && (
+              <div className='grid grid-cols-1 lg:grid-cols-2 gap-6'>
+                <TeamStatsCard stats={result.team1_stats} color='blue' />
+                <TeamStatsCard stats={result.team2_stats} color='red' />
+              </div>
+            )}
 
           {/* Head-to-Head */}
           {!('error' in result.head_to_head) && (
@@ -1477,11 +1526,11 @@ export default function AnalysisPage() {
           )}
 
           {/* Raw Data (Debug - Optional) */}
-          <details className="bg-gray-100 rounded p-4">
-            <summary className="cursor-pointer font-semibold">
+          <details className='bg-gray-100 rounded p-4'>
+            <summary className='cursor-pointer font-semibold'>
               🔍 View Raw API Response (Debug)
             </summary>
-            <pre className="mt-4 text-xs overflow-auto">
+            <pre className='mt-4 text-xs overflow-auto'>
               {JSON.stringify(result, null, 2)}
             </pre>
           </details>
@@ -1528,7 +1577,7 @@ module.exports = {
     },
   },
   plugins: [],
-}
+};
 ```
 
 ---
@@ -1544,15 +1593,17 @@ module.exports = {
   - `PredictionSummary.tsx` - AI prediction summary
 - [ ] **4. Create analysis page** - `app/analysis/page.tsx`
 - [ ] **5. Test API connection:**
+
   ```bash
   # Make sure Django backend is running:
   cd ../tipster_backend
   python manage.py runserver
-  
+
   # Then test frontend:
   npm run dev
   # Open http://localhost:3000/analysis
   ```
+
 - [ ] **6. Integrate with The Odds API:**
   - Get matches from The Odds API
   - Pass match data to `analyzeMatch()` function
@@ -1574,6 +1625,7 @@ module.exports = {
 ## 📝 Changelog
 
 ### **v1.2.0** - October 12, 2025
+
 - ✨ **NEW:** The Odds API integration (recommended format)
 - ✨ **NEW:** Match ID, commence time, sport key in response
 - ✨ **NEW:** Backward compatible with legacy team1/team2 format
@@ -1581,9 +1633,10 @@ module.exports = {
 - 📚 **NEW:** Ready-to-use components: FormBadge, TeamStatsCard, HeadToHeadCard, PredictionSummary
 
 ### **v1.1.0** - October 12, 2025
+
 - ✨ **NEW:** Added structured data extraction for frontend visualization
 - ✨ **NEW:** `team1_stats` - Last 10 matches, form, statistics
-- ✨ **NEW:** `team2_stats` - Last 10 matches, form, statistics  
+- ✨ **NEW:** `team2_stats` - Last 10 matches, form, statistics
 - ✨ **NEW:** `head_to_head` - Last 10 H2H matches and summary stats
 - ✨ **NEW:** Parser node in workflow using Gemini Flash for data extraction
 - 📊 **Improved:** Enhanced Tavily searches (3 searches instead of 1)
@@ -1591,6 +1644,7 @@ module.exports = {
 - 🐛 **Fixed:** Conservative predictions for dominant teams
 
 ### **v1.0.0** - October 11, 2025
+
 - 🎉 Initial release with AI match analysis
 - 🤖 Multi-agent LangGraph workflow
 - 🇧🇬 Bulgarian language responses
