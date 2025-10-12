@@ -47,6 +47,8 @@ def aggregate_analysis(state: GraphState) -> GraphState:
         # Comprehensive prompt for final aggregation
         prompt = f"""You are an expert football analyst tasked with providing a FINAL, COMPREHENSIVE match prediction.
 
+IMPORTANT: You MUST respond ENTIRELY in BULGARIAN language. All your analysis, predictions, and explanations must be in Bulgarian.
+
 Match: {team1} vs {team2}
 
 You have received the following specialized analyses from your team of analysts:
@@ -65,20 +67,27 @@ You have received the following specialized analyses from your team of analysts:
 
 ===
 
+CRITICAL INSTRUCTIONS:
+1. Pay SPECIAL attention to RECENT ACTUAL MATCH RESULTS in the research data
+2. If one team recently scored 6+ goals, they are in EXCEPTIONAL form - reflect this!
+3. If one team recently conceded many goals, their defense is weak - factor this heavily!
+4. Don't be conservative if recent results show dominant performances
+5. Large recent score differences (e.g., 6-1, 5-0) are STRONG indicators of current form disparity
+
 Your task is to:
-1. SYNTHESIZE all the above information
+1. SYNTHESIZE all the above information, prioritizing RECENT ACTUAL RESULTS
 2. IDENTIFY any contradictions or agreements between the analyses
-3. WEIGH the reliability of each prediction based on the research data
-4. Provide a FINAL, WELL-REASONED prediction
+3. WEIGH the reliability of each prediction based on the research data (recent results are most reliable!)
+4. Provide a FINAL, WELL-REASONED prediction IN BULGARIAN that reflects current form
 
-Your response should include:
-- A brief overview of key factors influencing the match
-- Your final prediction on the winner
-- Your final prediction on the score
-- Your confidence level (High/Medium/Low) and reasoning
-- Any important caveats or risk factors
+Your response IN BULGARIAN should include:
+- Кратък преглед на ключовите фактори влияещи на мача (особено скорошна форма!)
+- Финална прогноза за победителя
+- Финална прогноза за резултата (не се страхувай да предвидиш 3-0, 4-1, 5-0 ако данните го показват!)
+- Ниво на увереност (Високо/Средно/Ниско) и обяснение
+- Важни предупреждения или рискови фактори
 
-Be concise but thorough. Focus on actionable insights.
+Be bold with predictions when recent data shows clear dominance. Focus on actionable insights. REMEMBER: Write EVERYTHING in BULGARIAN!
 """
         
         print("="*80)

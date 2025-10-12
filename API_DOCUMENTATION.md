@@ -6,6 +6,8 @@ Django REST API за анализ на футболни мачове изпол�
 
 **Base URL:** `http://localhost:8000`
 
+**🇧🇬 Език на отговорите:** Всички AI анализи се генерират на **БЪЛГАРСКИ ЕЗИК**
+
 **Технологии:**
 
 - Django 5.2.7
@@ -82,18 +84,20 @@ Content-Type: application/json
   "team1": "Kosovo",
   "team2": "Slovenia",
   "analysis": {
-    "goals_prediction": "Kosovo's strong home form and need for points in World Cup Qualifying suggest they'll push forward, while Slovenia's poor defensive record makes them vulnerable. However, Kosovo's key defender Rrahmani is injured, potentially opening up scoring chances for Slovenia. Given these factors, a moderate number of goals is anticipated.\n\nExpected goals: 2-3 total",
+    "goals_prediction": "Косово има силна домакинска форма и се нуждае от точки в световните квалификации, което предполага че ще атакуват активно, докато Словения има слаба защита и е уязвима. Въпреки това, Косово ще липсва ключов защитник Рахмани, което може да отвори възможности за Словения да вкара гол. Предвид тези фактори, очаква се умерен брой голове.\n\nОчаквани голове: 2-3 общо",
 
-    "winner_prediction": "Kosovo has strong home form and is placed higher in the group standings, giving them a slight edge. While they have injury concerns, Slovenia's poor form and head-to-head record suggest they will struggle. Kosovo to win.",
+    "winner_prediction": "Косово има силна домакинска форма и по-високо класиране в групата, което им дава лек превес. Въпреки контузиите, слабата форма на Словения и техните взаимни резултати предполагат че ще им бъде трудно. Косово ще спечели.",
 
-    "score_prediction": "Kosovo's strong home form and Slovenia's struggles in the group suggest a slight advantage for the home side. The absence of key players like Rrahmani for Kosovo might impact their defense, but their attacking prowess should still be enough to secure a narrow victory.\n\nPredicted score: Kosovo 2-1 Slovenia",
+    "score_prediction": "Силната домакинска форма на Косово и проблемите на Словения в групата предполагат лек превес за домакините. Липсата на ключови играчи като Рахмани може да засегне отбраната им, но атакуващата мощ на Косово трябва да бъде достатъчна за тясна победа.\n\nПрогнозиран резултат: Косово 2-1 Словения",
 
-    "final_analysis": "**Final Match Prediction: Kosovo vs Slovenia**\n\n**Overview of Key Factors:**\n\nThis World Cup Qualifier pits Kosovo, currently second in Group B, against fourth-placed Slovenia...\n\n**Final Prediction:**\n- **Winner:** Kosovo\n- **Score:** Kosovo 2-1 Slovenia\n- **Confidence Level:** Medium-High",
+    "final_analysis": "**Финална прогноза за мача: Косово срещу Словения**\n\n**Преглед на ключовите фактори:**\n\nТази квалификация за Световното първенство изправя Косово, в момента второ място в Група Б, срещу Словения на четвърто място...\n\n**Финална прогноза:**\n- **Победител:** Косово\n- **Резултат:** Косово 2-1 Словения\n- **Ниво на увереност:** Средно-високо",
 
     "research_data": "=== Research Data for Kosovo vs Slovenia ===\n\n1. Kosovo v Slovenia LIVE 10/10/2025 | Football - Flashscore.com\n   Source: https://www.flashscore.com/match/...\n   Kosovo are without a few players due to injury..."
   }
 }
 ```
+
+**ВАЖНО:** Всички AI анализи (goals_prediction, winner_prediction, score_prediction, final_analysis) ще бъдат на **БЪЛГАРСКИ ЕЗИК**.
 
 #### **Response Fields:**
 
@@ -166,6 +170,9 @@ Content-Type: application/json
 - **Модел:** `gemini-2.0-flash-thinking-exp` (по-мощен модел)
 - **Цел:** Обединява всички анализи в финално предвиждане
 - **Prompt:** Синтезира информация от всички агенти и дава финално заключение
+- **Език на отговор:** 🇧🇬 **БЪЛГАРСКИ**
+
+**⚠️ ВАЖНО:** Всички AI агенти са инструктирани да отговарят на **БЪЛГАРСКИ ЕЗИК**. Всички анализи (goals_prediction, winner_prediction, score_prediction, final_analysis) ще бъдат на български.
 
 ### **Workflow Flow:**
 

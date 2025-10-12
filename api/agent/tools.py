@@ -45,23 +45,56 @@ def search_web_tavily(state: GraphState) -> GraphState:
         # Initialize Tavily client
         tavily = TavilyClient(api_key=tavily_api_key)
         
-        # Construct search query
-        query = f"{team1} vs {team2} football match prediction news injuries form statistics"
+        # SEARCH 1: Direct match prediction and head-to-head
+        query1 = f"{team1} vs {team2} football match prediction latest results goals scored recent form head to head statistics injuries lineup"
         
-        # Perform search (max 5 results to stay within limits)
-        search_results = tavily.search(
-            query=query,
-            max_results=5,
-            search_depth="advanced"
+        print(f"[SEARCH 1 - Match Specific] {query1}\n")
+        
+        search_results1 = tavily.search(
+            query=query1,
+            max_results=3,
+            search_depth="advanced",
+            include_domains=["flashscore.com", "sofascore.com", "espn.com", "bbc.com", "uefa.com", "fifa.com", "transfermarkt.com", "footballwhispers.com", "whoscored.com"]
         )
         
-        print(f"[OK] Found {len(search_results.get('results', []))} sources:\n")
+        # SEARCH 2: Recent form of team1
+        query2 = f"{team1} football recent results last 5 matches goals scored form statistics 2025"
+        
+        print(f"[SEARCH 2 - {team1} Recent Form] {query2}\n")
+        
+        search_results2 = tavily.search(
+            query=query2,
+            max_results=2,
+            search_depth="basic"
+        )
+        
+        # SEARCH 3: Recent form of team2
+        query3 = f"{team2} football recent results last 5 matches goals scored form statistics 2025"
+        
+        print(f"[SEARCH 3 - {team2} Recent Form] {query3}\n")
+        
+        search_results3 = tavily.search(
+            query=query3,
+            max_results=2,
+            search_depth="basic"
+        )
+        
+        # Combine all results
+        all_results = []
+        if search_results1 and 'results' in search_results1:
+            all_results.extend(search_results1['results'])
+        if search_results2 and 'results' in search_results2:
+            all_results.extend(search_results2['results'])
+        if search_results3 and 'results' in search_results3:
+            all_results.extend(search_results3['results'])
+        
+        print(f"[OK] Found {len(all_results)} total sources across all searches\n")
         
         # Format the results
         formatted_data = f"=== Research Data for {team1} vs {team2} ===\n\n"
         
-        if search_results and 'results' in search_results:
-            for idx, result in enumerate(search_results['results'], 1):
+        if all_results:
+            for idx, result in enumerate(all_results, 1):
                 title = result.get('title', 'N/A')
                 url = result.get('url', 'N/A')
                 print(f"   {idx}. {title}")
@@ -75,7 +108,7 @@ def search_web_tavily(state: GraphState) -> GraphState:
             print("   [WARNING] No results found\n")
         
         state["research_data"] = formatted_data
-        print("[OK] Tavily search completed\n")
+        print("[OK] All Tavily searches completed\n")
         
     except Exception as e:
         error_msg = f"Error during web search: {str(e)}"

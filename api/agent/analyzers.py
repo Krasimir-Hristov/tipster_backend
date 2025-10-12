@@ -45,6 +45,8 @@ def analyze_goals(state: GraphState) -> GraphState:
         # Craft specialized prompt
         prompt = f"""You are a football match analyst specializing in GOAL PREDICTIONS.
 
+IMPORTANT: You must respond in BULGARIAN language.
+
 Match: {team1} vs {team2}
 
 Research Data:
@@ -52,15 +54,24 @@ Research Data:
 
 Based on the above information, analyze and predict the TOTAL NUMBER OF GOALS in this match.
 
+CRITICAL: Pay special attention to:
+- RECENT match results and actual goals scored (last 3-5 games for each team)
+- If one team scored 6+ goals recently, they are in EXCEPTIONAL attacking form
+- Historical head-to-head results and goal patterns
+- Large score differences in recent matches indicate current form disparity
+- Defensive records - teams conceding many goals recently will likely continue
+
 Consider:
-- Recent scoring form of both teams
-- Defensive records
-- Head-to-head goal statistics
+- Recent scoring form of both teams (MOST IMPORTANT - actual recent results!)
+- Defensive records and recent goals conceded
+- Head-to-head goal statistics and historical score patterns
 - Playing styles (attacking vs defensive)
 - Injuries to key attackers or defenders
 
-Provide your analysis in 2-3 concise sentences, ending with a specific prediction:
-"Expected goals: Over/Under 2.5" or "Expected goals: 2-3 total"
+If recent matches show high-scoring games (4+ goals), predict accordingly. Don't be conservative if data shows attacking dominance.
+
+Provide your analysis in BULGARIAN in 2-3 concise sentences, ending with a specific prediction:
+"Очаквани голове: Over/Under 2.5" or "Очаквани голове: 2-3 общо" or "Очаквани голове: 4+ общо" (adapt based on recent form!)
 """
         
         print("="*80)
@@ -114,6 +125,8 @@ def analyze_winner(state: GraphState) -> GraphState:
         
         prompt = f"""You are a football match analyst specializing in MATCH OUTCOME predictions.
 
+IMPORTANT: You must respond in BULGARIAN language.
+
 Match: {team1} vs {team2}
 
 Research Data:
@@ -128,8 +141,8 @@ Consider:
 - Team morale and recent results
 - Key player availability
 
-Provide your analysis in 2-3 concise sentences, ending with a clear prediction:
-"{team1} to win", "{team2} to win", or "Draw likely"
+Provide your analysis in BULGARIAN in 2-3 concise sentences, ending with a clear prediction:
+"{team1} ще спечели", "{team2} ще спечели", или "Вероятна е равен резултат"
 """
         
         print("="*80)
@@ -183,6 +196,8 @@ def analyze_score(state: GraphState) -> GraphState:
         
         prompt = f"""You are a football match analyst specializing in EXACT SCORE predictions.
 
+IMPORTANT: You must respond in BULGARIAN language.
+
 Match: {team1} vs {team2}
 
 Research Data:
@@ -190,14 +205,25 @@ Research Data:
 
 Based on the above information, predict the EXACT FINAL SCORE of this match.
 
-Consider:
-- Typical score patterns for these teams
-- Recent match scores
-- Offensive and defensive capabilities
-- Historical score lines in similar matchups
+CRITICAL: Pay special attention to:
+- RECENT actual match results (last 3-5 games) - these show CURRENT form!
+- If one team scored 6 goals and the other conceded 6 recently, expect similar patterns
+- Head-to-head historical scores between these exact teams
+- Large score differences in recent matches (e.g., 6-1, 5-0) indicate current dominance
+- Don't predict conservatively if recent results show high-scoring dominant wins
 
-Provide your analysis in 2-3 concise sentences, ending with a specific score prediction:
-"Predicted score: {team1} 2-1 {team2}" (use actual team names)
+Consider:
+- Typical score patterns for these teams IN RECENT GAMES (most important!)
+- Recent match scores (actual results from last few games)
+- Offensive and defensive capabilities based on RECENT performance
+- Historical score lines in similar matchups between these teams
+- Current form disparity - if one team is much stronger recently, reflect this!
+
+If recent data shows one team scoring many goals (4+) and the other conceding many, predict a clear win with multiple goals.
+
+Provide your analysis in BULGARIAN in 2-3 concise sentences, ending with a specific score prediction:
+"Прогнозиран резултат: {team1} 2-1 {team2}" (използвай истинските имена на отборите)
+Adapt the score based on recent form - don't hesitate to predict 3-0, 4-1, etc. if data supports it!
 """
         
         print("="*80)
