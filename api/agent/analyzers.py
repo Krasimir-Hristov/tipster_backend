@@ -35,7 +35,7 @@ def analyze_goals(state: GraphState) -> GraphState:
         return state
     
     try:
-        # Initialize Gemini Flash
+        # Initialize Gemini Pro (higher rate limits)
         llm = ChatGoogleGenerativeAI(
             model="gemini-2.0-flash-exp",
             google_api_key=google_api_key,
