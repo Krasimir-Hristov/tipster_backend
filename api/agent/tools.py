@@ -110,7 +110,7 @@ def search_web_tavily(state: GraphState) -> GraphState:
         state["research_data"] = formatted_data
         print("[OK] All Tavily searches completed\n")
         
-    except Exception as e:
+    except (ValueError, KeyError, ConnectionError) as e:
         error_msg = f"Error during web search: {str(e)}"
         state["research_data"] = error_msg
         print(f"[ERROR] {error_msg}\n")
@@ -156,7 +156,7 @@ def get_football_data(state: GraphState) -> GraphState:
         # 5. Append to research_data
         pass
         
-    except Exception as e:
+    except (ValueError, KeyError, ConnectionError) as e:
         # Don't fail the entire flow if this API is down
         print(f"[WARNING] API-Football error: {str(e)}")
     

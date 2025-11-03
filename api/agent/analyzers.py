@@ -79,14 +79,16 @@ Provide your analysis in BULGARIAN in 2-3 concise sentences, ending with a speci
         print("="*80)
         
         response = llm.invoke(prompt)
-        state["goals_analysis"] = response.content
+        # Ensure content is string (LangChain can return str or list)
+        content = response.content if isinstance(response.content, str) else str(response.content)
+        state["goals_analysis"] = content
         
         print("[GOALS ANALYSIS RESULT]")
         print("-" * 80)
-        print(response.content)
+        print(content)
         print("-" * 80 + "\n")
         
-    except Exception as e:
+    except (ValueError, KeyError, AttributeError) as e:
         error_msg = f"Error in goals analysis: {str(e)}"
         state["goals_analysis"] = error_msg
         print(f"[ERROR] {error_msg}\n")
@@ -150,14 +152,16 @@ Provide your analysis in BULGARIAN in 2-3 concise sentences, ending with a clear
         print("="*80)
         
         response = llm.invoke(prompt)
-        state["winner_analysis"] = response.content
+        # Ensure content is string
+        content = response.content if isinstance(response.content, str) else str(response.content)
+        state["winner_analysis"] = content
         
         print("[WINNER ANALYSIS RESULT]")
         print("-" * 80)
-        print(response.content)
+        print(content)
         print("-" * 80 + "\n")
         
-    except Exception as e:
+    except (ValueError, KeyError, AttributeError) as e:
         error_msg = f"Error in winner analysis: {str(e)}"
         state["winner_analysis"] = error_msg
         print(f"[ERROR] {error_msg}\n")
@@ -231,14 +235,16 @@ Adapt the score based on recent form - don't hesitate to predict 3-0, 4-1, etc. 
         print("="*80)
         
         response = llm.invoke(prompt)
-        state["score_analysis"] = response.content
+        # Ensure content is string
+        content = response.content if isinstance(response.content, str) else str(response.content)
+        state["score_analysis"] = content
         
         print("[SCORE ANALYSIS RESULT]")
         print("-" * 80)
-        print(response.content)
+        print(content)
         print("-" * 80 + "\n")
         
-    except Exception as e:
+    except (ValueError, KeyError, AttributeError) as e:
         error_msg = f"Error in score analysis: {str(e)}"
         state["score_analysis"] = error_msg
         print(f"[ERROR] {error_msg}\n")

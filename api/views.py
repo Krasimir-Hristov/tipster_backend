@@ -1,8 +1,8 @@
-from django.shortcuts import render
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 from rest_framework import status
 from .agent import analysis_graph
+from .agent.state import GraphState
 
 @api_view(['POST'])
 def analyze_teams(request):
@@ -69,7 +69,7 @@ def analyze_teams(request):
             }, status=status.HTTP_400_BAD_REQUEST)
         
         # Prepare initial state for the graph
-        initial_state = {
+        initial_state: GraphState = {
             "team1": team1,
             "team2": team2,
             "research_data": "",
@@ -110,8 +110,20 @@ def analyze_teams(request):
         
         return Response(response_data, status=status.HTTP_200_OK)
         
+    except ValueError as e:
+        # Handle validation errors
+        return Response({
+            "error": f"Invalid input: {str(e)}",
+            "success": False
+        }, status=status.HTTP_400_BAD_REQUEST)
+    except KeyError as e:
+        # Handle missing required fields
+        return Response({
+            "error": f"Missing required field: {str(e)}",
+            "success": False
+        }, status=status.HTTP_400_BAD_REQUEST)
     except Exception as e:
-        # Handle any errors gracefully
+        # Handle any unexpected errors
         return Response({
             "error": f"An error occurred during analysis: {str(e)}",
             "success": False

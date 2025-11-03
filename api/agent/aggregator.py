@@ -95,14 +95,16 @@ Be bold with predictions when recent data shows clear dominance. Focus on action
         print("="*80)
         
         response = llm.invoke(prompt)
-        state["final_analysis"] = response.content
+        # Ensure content is string
+        content = response.content if isinstance(response.content, str) else str(response.content)
+        state["final_analysis"] = content
         
         print("[FINAL ANALYSIS]")
         print("="*80)
-        print(response.content)
+        print(content)
         print("="*80 + "\n")
         
-    except Exception as e:
+    except (ValueError, KeyError, AttributeError) as e:
         error_msg = f"Error in final analysis aggregation: {str(e)}"
         state["final_analysis"] = error_msg
         print(f"[ERROR] {error_msg}\n")

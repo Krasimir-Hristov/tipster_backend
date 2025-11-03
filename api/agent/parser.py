@@ -7,7 +7,6 @@ Converts unstructured Tavily search results into structured JSON for frontend vi
 
 import os
 import json
-from typing import Dict, Any, List
 from langchain_google_genai import ChatGoogleGenerativeAI
 from api.agent.state import GraphState
 
@@ -144,7 +143,9 @@ If insufficient data exists for a section, use:
         
         print("[PARSER] Sending extraction request to Gemini...")
         response = llm.invoke(prompt)
-        response_text = response.content.strip()
+        # Ensure content is string before calling .strip()
+        content = response.content if isinstance(response.content, str) else str(response.content)
+        response_text = content.strip()
         
         # Try to extract JSON from response
         # Sometimes LLM wraps JSON in markdown code blocks
@@ -186,7 +187,7 @@ If insufficient data exists for a section, use:
         state["team1_stats"] = {"error": "Грешка при обработка на данните"}
         state["team2_stats"] = {"error": "Грешка при обработка на данните"}
         state["head_to_head"] = {"error": "Грешка при обработка на данните"}
-    except Exception as e:
+    except (ValueError, KeyError, TypeError) as e:
         print(f"[ERROR] Data extraction failed: {e}")
         state["team1_stats"] = {"error": "Няма достатъчно информация"}
         state["team2_stats"] = {"error": "Няма достатъчно информация"}
