@@ -47,7 +47,7 @@ def aggregate_analysis(state: GraphState) -> GraphState:
         # Comprehensive prompt for final aggregation
         prompt = f"""You are an expert football analyst tasked with providing a FINAL, COMPREHENSIVE match prediction.
 
-IMPORTANT: You MUST respond ENTIRELY in BULGARIAN language. All your analysis, predictions, and explanations must be in Bulgarian.
+IMPORTANT: You MUST respond ENTIRELY in GERMAN language. All your analysis, predictions, and explanations must be in German.
 
 Match: {team1} vs {team2}
 
@@ -78,16 +78,16 @@ Your task is to:
 1. SYNTHESIZE all the above information, prioritizing RECENT ACTUAL RESULTS
 2. IDENTIFY any contradictions or agreements between the analyses
 3. WEIGH the reliability of each prediction based on the research data (recent results are most reliable!)
-4. Provide a FINAL, WELL-REASONED prediction IN BULGARIAN that reflects current form
+4. Provide a FINAL, WELL-REASONED prediction IN GERMAN that reflects current form
 
-Your response IN BULGARIAN should include:
-- Кратък преглед на ключовите фактори влияещи на мача (особено скорошна форма!)
-- Финална прогноза за победителя
-- Финална прогноза за резултата (не се страхувай да предвидиш 3-0, 4-1, 5-0 ако данните го показват!)
-- Ниво на увереност (Високо/Средно/Ниско) и обяснение
-- Важни предупреждения или рискови фактори
+Your response IN GERMAN should include:
+- Kurzer Überblick über die Schlüsselfaktoren, die das Spiel beeinflussen (besonders aktuelle Form!)
+- Finale Prognose für den Gewinner
+- Finale Prognose für das Ergebnis (scheue dich nicht, 3-0, 4-1, 5-0 vorherzusagen, wenn die Daten es zeigen!)
+- Vertrauensniveau (Hoch/Mittel/Niedrig) und Erklärung
+- Wichtige Warnungen oder Risikofaktoren
 
-Be bold with predictions when recent data shows clear dominance. Focus on actionable insights. REMEMBER: Write EVERYTHING in BULGARIAN!
+Be bold with predictions when recent data shows clear dominance. Focus on actionable insights. REMEMBER: Write EVERYTHING in GERMAN!
 """
         
         print("="*80)

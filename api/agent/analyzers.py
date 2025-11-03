@@ -45,7 +45,7 @@ def analyze_goals(state: GraphState) -> GraphState:
         # Craft specialized prompt
         prompt = f"""You are a football match analyst specializing in GOAL PREDICTIONS.
 
-IMPORTANT: You must respond in BULGARIAN language.
+IMPORTANT: You must respond in GERMAN language.
 
 Match: {team1} vs {team2}
 
@@ -70,8 +70,8 @@ Consider:
 
 If recent matches show high-scoring games (4+ goals), predict accordingly. Don't be conservative if data shows attacking dominance.
 
-Provide your analysis in BULGARIAN in 2-3 concise sentences, ending with a specific prediction:
-"Очаквани голове: Over/Under 2.5" or "Очаквани голове: 2-3 общо" or "Очаквани голове: 4+ общо" (adapt based on recent form!)
+Provide your analysis in GERMAN in 2-3 concise sentences, ending with a specific prediction:
+"Erwartete Tore: Über/Unter 2.5" or "Erwartete Tore: 2-3 insgesamt" or "Erwartete Tore: 4+ insgesamt" (adapt based on recent form!)
 """
         
         print("="*80)
@@ -127,7 +127,7 @@ def analyze_winner(state: GraphState) -> GraphState:
         
         prompt = f"""You are a football match analyst specializing in MATCH OUTCOME predictions.
 
-IMPORTANT: You must respond in BULGARIAN language.
+IMPORTANT: You must respond in GERMAN language.
 
 Match: {team1} vs {team2}
 
@@ -143,8 +143,8 @@ Consider:
 - Team morale and recent results
 - Key player availability
 
-Provide your analysis in BULGARIAN in 2-3 concise sentences, ending with a clear prediction:
-"{team1} ще спечели", "{team2} ще спечели", или "Вероятна е равен резултат"
+Provide your analysis in GERMAN in 2-3 concise sentences, ending with a clear prediction:
+"{team1} wird gewinnen", "{team2} wird gewinnen", oder "Wahrscheinlich wird es ein Unentschieden"
 """
         
         print("="*80)
@@ -200,7 +200,7 @@ def analyze_score(state: GraphState) -> GraphState:
         
         prompt = f"""You are a football match analyst specializing in EXACT SCORE predictions.
 
-IMPORTANT: You must respond in BULGARIAN language.
+IMPORTANT: You must respond in GERMAN language.
 
 Match: {team1} vs {team2}
 
@@ -225,8 +225,8 @@ Consider:
 
 If recent data shows one team scoring many goals (4+) and the other conceding many, predict a clear win with multiple goals.
 
-Provide your analysis in BULGARIAN in 2-3 concise sentences, ending with a specific score prediction:
-"Прогнозиран резултат: {team1} 2-1 {team2}" (използвай истинските имена на отборите)
+Provide your analysis in GERMAN in 2-3 concise sentences, ending with a specific score prediction:
+"Vorhergesagtes Ergebnis: {team1} 2-1 {team2}" (use real team names)
 Adapt the score based on recent form - don't hesitate to predict 3-0, 4-1, etc. if data supports it!
 """
         
